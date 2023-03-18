@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.ics": "config-spec",
+    "*.tpp": "cpp"
+  }
+}
