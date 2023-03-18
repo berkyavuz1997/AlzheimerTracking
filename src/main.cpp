@@ -79,9 +79,6 @@ const char simPIN[] = ""; // SIM card PIN (leave empty, if not defined)
 // Set serial for AT commands (to SIM800 module)
 #define SerialAT Serial1
 
-// Set serial for debug console (to Serial Monitor, default speed 115200)
-// #define SerialMon Serial2
-
 // Default heartbeat interval for GSM is 60
 // If you want override this value, uncomment and set this option:
 // #define BLYNK_HEARTBEAT 30
@@ -121,16 +118,12 @@ SimpleTimer timer;
 
 void setup()
 {
-  // Set console baud rate
-  // SerialMon.begin(115200);
-
   SerialGPS.begin(115200);
   delay(10);
 
   // Keep power when running from battery
   Wire.begin(I2C_SDA, I2C_SCL);
   bool isOk = setPowerBoostKeepOn(1);
-  // SerialMon.println(String("IP5306 KeepOn ") + (isOk ? "OK" : "FAIL"));
 
   // Set modem reset, enable, power pins
   pinMode(MODEM_PWKEY, OUTPUT);
@@ -145,7 +138,6 @@ void setup()
   SerialAT.begin(115200, SERIAL_8N1, MODEM_RX, MODEM_TX);
   delay(3000);
 
-  // SerialMon.println("Initializing modem...");
   modem.restart();
   // modem.init(); // Restart takes quite some time. To skip it, you may call init() instead of restart()
 
@@ -154,8 +146,6 @@ void setup()
     modem.simUnlock(simPIN);
 
   String modemInfo = modem.getModemInfo();
-  // SerialMon.print("Modem Info: ");
-  // SerialMon.println(modemInfo);
 
   Blynk.begin(blynkAuth, modem, apn, user, pass);
 

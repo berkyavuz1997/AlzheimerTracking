@@ -1,3 +1,10 @@
+/*
+    helper_functions.h
+    Date: 18 March 2023
+    Author: Berk Yaşar Yavuz
+    Mail: berkyavuz1997@gmail.com
+*/
+
 bool setPowerBoostKeepOn(int en)
 {
     Wire.beginTransmission(IP5306_ADDR);
@@ -24,7 +31,6 @@ void sendSms(const int stepCount)
 
     if (noOfTrial >= MAX_NO_OF_TRIALS_FOR_SMS)
     {
-        // SerialMon.println("SMS failed to send after " + String(noOfTrial) + " trials.");
         lastSmsSentWithStepCount = stepCount;
         noOfTrial = 0;
         return;
@@ -34,15 +40,9 @@ void sendSms(const int stepCount)
     sprintf(smsMessage, SMS_CONTENT, stepCount);
 
     if (modem.sendSMS(SMS_TARGET, String(smsMessage)))
-    {
         lastSmsSentWithStepCount = stepCount; // Prevents sending same SMS again
-                                              // SerialMon.println("SMS successfully sent: " + String(smsMessage));
-    }
     else
-    {
         noOfTrial++;
-        // SerialMon.println("SMS failed to send: " + String(smsMessage));
-    }
 }
 
 void updateGPS()
@@ -65,3 +65,10 @@ void periodicUpdate()
     if (gps.location.isValid())
         myMap.location(2, gps.location.lat(), gps.location.lng(), MAP_LABEL);
 }
+
+/*
+    helper_functions.h
+    Date: 18 March 2023
+    Author: Berk Yaşar Yavuz
+    Mail: berkyavuz1997@gmail.com
+*/

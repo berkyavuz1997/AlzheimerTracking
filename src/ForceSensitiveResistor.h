@@ -87,8 +87,6 @@ void ForceSensitiveResistor::_countSteps()
     {
         _lastStepTime = millis();
         _steps++;
-
-        // SerialMon.println("ForceSensitiveResistor::_countSteps() - Step detected! total steps: " + String(_steps));
     }
 }
 
